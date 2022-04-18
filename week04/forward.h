@@ -24,11 +24,7 @@ public:
         return ForwardListIterator<T>(temp);//mas memoria
     }
 
-    T operator*() {
-        return this->current->data;
-    }
-
-    ForwardListIterator<T> &operator--()//++it
+    ForwardListIterator<T> &operator--()//--it
     {
         throw ("It's not implement");
     }
@@ -78,14 +74,14 @@ public:
 
 
         Node<T> *looper = this->head;
-        while (lo)
-
-        for (iterator iterator = begin(); iterator != end(); ++iterator) {
-            if (iterator.current->next == nullptr) {
-                this->tail = iterator.current;
+        while (looper != nullptr) {
+            if (looper->next == nullptr) {
+                this->tail = looper;
             }
+            looper = looper->next;
         }
 
+        delete looper;
         this->nodes++;
         return value;
     }
@@ -93,15 +89,20 @@ public:
     T insert(T t, int pos) override {
         Node<T> *node = new Node<T>(t);
 
-        int current = 0;
-        for (iterator iterator = begin(); iterator != end(); ++iterator) {
-            if (current == pos) {
-                node->next = iterator->current;
-                iterator->current = node;
-                break;
-            }
-            current++;
+        Node<T> *looper = this->head;
+
+        if (pos == 0) {
+            this->push_front(t);
         }
+
+        for (int i = 0; i < pos; ++i) {
+            if (pos == i + 1) {
+                node->next = looper->next;
+                looper->next = node;
+            }
+        }
+
+        delete looper;
         this->nodes++;
         return t;
     }
@@ -116,7 +117,7 @@ public:
                 looper = looper->next;
                 continue;
             }
-            if (looper->next->data == t) {
+            if (looper->next != nullptr && looper->next->data == t) {
                 if (looper->next == this->tail) {
                     this->tail = looper;
                 }
@@ -127,33 +128,42 @@ public:
                 looper = looper->next;
                 continue;
             }
+            looper = looper->next;
         }
+
+        delete looper;
     }
 
     T operator[](int pos) override {
         T value;
 
         int current = 0;
-        for (iterator iterator = begin(); iterator != end(); ++iterator) {
+        Node<T> *looper = this->head;
+        while (looper != nullptr) {
             if (current == pos) {
-                value = *iterator;
+                value = looper->data;
                 break;
             }
+            looper = looper->next;
             current++;
         }
+        delete looper;
         return value;
     }
 
     bool empty() override {
-        return this->nodees == 0;
+        return this->nodes == 0;
     }
 
     bool find(T t) override {
-        for (iterator iterator = begin(); iterator != end(); ++iterator) {
-            if (*iterator == t) {
+        Node<T> *looper = this->head;
+        while (looper != nullptr) {
+            if (looper->data == t) {
                 return true;
             }
+            looper = looper->next;
         }
+        delete looper;
         return false;
     }
 
@@ -201,9 +211,14 @@ public:
 
     void display(std::ostream &os) override {
         os << name() << ": ";
-        for (iterator iterator = begin(); iterator != end(); ++iterator) {
-            os << *iterator << " ";
+
+        Node<T> *looper = this->head;
+        while (looper != nullptr) {
+            os << looper->data << " ";
+            looper = looper->next;
         }
+
+        delete looper;
         os << "\n\r";
     }
 

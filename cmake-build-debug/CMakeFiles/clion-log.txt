@@ -1,4 +1,0 @@
-"/Users/nick/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/221.5080.224/CLion.app/Contents/bin/cmake/mac/bin/cmake" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=/Users/nick/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/221.5080.224/CLion.app/Contents/bin/ninja/mac/ninja" -DCMAKE_CXX_COMPILER=g++ -G Ninja -S /Users/nick/Projects/algoritmos/utec-ads-2022-1/week04 -B /Users/nick/Projects/algoritmos/utec-ads-2022-1/week04/cmake-build-debug
--- Configuring done
--- Generating done
--- Build files have been written to: /Users/nick/Projects/algoritmos/utec-ads-2022-1/week04/cmake-build-debug
